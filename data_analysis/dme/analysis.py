@@ -2,16 +2,16 @@ import pandas as pd
 from plot_functions.plot_func import *
 
 # Caricamento del dataset
-df = pd.read_csv('../../datasets/dr/prepared/OCT-DR_36W.csv', sep=";")
+df = pd.read_csv('../../datasets/dme/prepared/trex.csv', sep=";")
 
 # Prendiamo gli ID unici dei pazienti
-patients_id = df['patient_id'].unique()
+patients_id = df['study_id'].unique()
 
 # Dizionario per salvare le colonne con NaN per ogni paziente
 patient_dict = {}
 
 for patient in patients_id:
-    row = df.loc[df['patient_id'] == patient]
+    row = df.loc[df['study_id'] == patient]
 
     # Assicuriamoci che il paziente sia nel dizionario con un array vuoto
     if patient not in patient_dict:
