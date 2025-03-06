@@ -1,10 +1,10 @@
 import pandas as pd
-from plot_functions.plot_func import *
+from functions.plot_func import *
 
 datasets = {
-    'trex': '../../datasets/dme/prepared/trex.csv',
-    'gila': '../../datasets/dme/prepared/gila.csv',
-    'monthly': '../../datasets/dme/prepared/monthly.csv'
+    'trex': '../../datasets/dme/ready_to_use/imputazione/trex.csv',
+    'gila': '../../datasets/dme/ready_to_use/imputazione/gila.csv',
+    'monthly': '../../datasets/dme/ready_to_use/imputazione/monthly.csv'
 }
 
 results = {
@@ -53,5 +53,4 @@ for key,value in datasets.items():
 
 for key,value in results.items():
     print(f"\n{key}")
-    print(f" Range visite mancanti: {min(value)} - {max(value)}")
     print(f" Valori nulli: {null_values[key]}\n")

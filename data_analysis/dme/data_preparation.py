@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 
+from functions.utility_functions import *
+
 
 # start_col altrimenti anche il Gender me lo metterebbe a null
 # Funzione utilizzata per eliminare i valori come "Missed"
@@ -47,7 +49,7 @@ def encoding(df: pd.DataFrame) -> pd.DataFrame:
 
 
 # Caricamento del dataset
-df = pd.read_csv('../../datasets/dme/gila.csv', sep=";")
+df = read_csv('../../datasets/dme/gila.csv')
 
 df['dr_level'] = df['dr_level'].str.strip()
 
@@ -55,7 +57,31 @@ df['dr_level'] = df['dr_level'].str.strip()
 df = convert_strings_to_null(df, start_col=10)
 
 df = encoding(df)
+
+
+#Elimino tutti i pazienti che non hanno dati finali
+
+# Identificare le ultime due colonne del DataFrame
+last_two_cols = df.columns[-2:]
+
+# Filtrare il DataFrame eliminando le righe che hanno almeno un valore null nelle ultime due colonne
+df_filtered = df.dropna(subset=last_two_cols, how='any')
+
+df = df_filtered
+
+#Elimino i pazienti che hanno meno di 1/3 delle visite
+# Identificare le colonne dalla 14esima fino alla (i-2)esima colonna
+columns_to_check = df.columns[13:-2]  # Indici basati su zero
+
+# Calcolare la soglia massima di NaN consentiti (meno di 1/3 dei valori nulli)
+threshold = len(columns_to_check) / 3
+
+# Filtrare il DataFrame eliminando le righe che hanno più di 1/3 di valori null nelle colonne selezionate
+df_filtered = df[df[columns_to_check].isnull().sum(axis=1) < threshold]
+
+df = df_filtered
+
 # Salvare il DataFrame aggiornato
-df.to_csv("../../datasets/dme/prepared/gila.csv", sep=";", index=False)
+save_csv(df, "../../datasets/dme/prepared/gila.csv")
 
 print("Dataset aggiornato e salvato correttamente!")

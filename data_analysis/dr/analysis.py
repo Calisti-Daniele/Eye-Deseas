@@ -1,5 +1,5 @@
 import pandas as pd
-from plot_functions.plot_func import *
+from functions.plot_func import *
 
 # Caricamento del dataset
 df = pd.read_csv('../../datasets/dr/prepared/OCT-DR_104W.csv', sep=";")
