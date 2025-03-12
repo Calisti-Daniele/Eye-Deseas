@@ -3,9 +3,9 @@ from functions.utility_functions import read_csv
 
 # Dizionario con i percorsi dei dataset
 datasets = {
-    'trex': '../../datasets/dme/ready_to_use/imputazione_augmentation/trex.csv',
-    'gila': '../../datasets/dme/ready_to_use/imputazione_augmentation/gila.csv',
-    'monthly': '../../datasets/dme/ready_to_use/imputazione_augmentation/monthly.csv'
+    'trex': '../../datasets/dme/ready_to_use/augmented/trex.csv',
+    'gila': '../../datasets/dme/ready_to_use/augmented/gila.csv',
+    'monthly': '../../datasets/dme/ready_to_use/augmented/monthly.csv'
 }
 
 # Dizionario per salvare i risultati del describe
