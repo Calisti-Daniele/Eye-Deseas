@@ -22,3 +22,15 @@ def normalizza_feature_numeriche(df: pd.DataFrame, scaler_path: str) -> pd.DataF
     joblib.dump(scaler, scaler_path)  # Salva lo scale
 
     return df
+
+
+def convert_to_float(value):
+    """Rimuove separatori di migliaia e converte in float."""
+    if isinstance(value, str):
+        value = value.replace('.', '')  # Rimuove separatori di migliaia
+        value = value.replace(',', '.')  # Sostituisce la virgola con il punto per i decimali
+        try:
+            return float(value)
+        except ValueError:
+            return np.nan  # Se non convertibile, restituisce NaN
+    return value  # Se già numerico, lo lascia invariato
