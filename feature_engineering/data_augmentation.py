@@ -29,13 +29,13 @@ for key, value in datasets.items():
     synthesizer.fit(data)
 
     # Genera dati sintetici
-    synthetic_data = synthesizer.sample(num_rows=100)
+    synthetic_data = synthesizer.sample(num_rows=10000)
 
     # Converte tutti i valori numerici in interi (senza cifre decimali)
     for col in synthetic_data.select_dtypes(include=['float', 'int']).columns:
         synthetic_data[col] = synthetic_data[col].round().astype(int)
 
     # Salva il dataset sintetico
-    save_csv(synthetic_data, f"../datasets/dme/ready_to_use/augmented/{key}.csv")
+    save_csv(synthetic_data, f"../datasets/dme/ready_to_use/augmented/{key}_10k_samples.csv")
 
     print(f"Dataset sintetico {key} salvato con valori numerici convertiti in interi.")

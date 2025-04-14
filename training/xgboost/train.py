@@ -7,20 +7,22 @@ import joblib
 from functions.utility_functions import *
 
 # Caricamento del dataset
-data = read_csv('feature_selection/train_dataset_trex_augmented_normalized.csv')
-data = data.map(convert_to_float)
+# Caricamento del dataset
+# Caricamento del dataset
+data = read_csv('feature_selection/train_dataset_trex_not_augmented_normalized.csv')
+data = data.map(convert_to_float)  # Converti tutti i valori nel formato corretto
+
 # Trova l'indice della colonna target
-target_column = "etdrs_20_visit"
+target_column = "etdrs_19_visit"
 target_index = data.columns.get_loc(target_column)
 
-# Mantieni solo le colonne fino a "etdrs_20_visit"
-data = data.iloc[:, :target_index + 1]
+# Mantieni tutte le feature prima di "etdrs_3_visit" + le prime 3 visite e il target "etdrs_20_visit"
+selected_features = list(data.columns[:target_index + 1]) + ["etdrs_20_visit", "fourier_coeff", "trend"]
+data = data[selected_features]
 
 # Separazione tra feature (X) e target (y)
-X = data.drop(target_column, axis=1)  # Tutte le colonne fino a etdrs_20_visit esclusa
-y = data[target_column]  # Target
-
-
+X = data.drop("etdrs_20_visit", axis=1)  # Manteniamo tutte le feature selezionate tranne il target
+y = data["etdrs_20_visit"]  # Target: predire la 20ª visita
 
 # Suddivisione in training e test set
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -59,7 +61,7 @@ for booster in booster_options:
         best_model = model
 
 # Salvataggio del miglior modello
-model_save_path = "../../models/best_xgboost_model_augmented.pkl"
+model_save_path = "../../models/best_xgboost_model_not_augmented.pkl"
 joblib.dump(best_model, model_save_path)
 print(f"\nMiglior modello salvato in: {model_save_path}")
 print(f"Miglior booster: {best_booster}, RMSE: {best_rmse:.4f}")

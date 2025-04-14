@@ -5,7 +5,9 @@ from functions.utility_functions import *
 # Carica il dataset
 data = read_csv('../../../datasets/dme/ready_to_use/augmented/trex.csv')
 
-data.drop(['study_id','dia-duration'], axis=1, inplace=True)
+fourier_coeff = data['fourier_coeff']
+trend = data['trend']
+
 # Trova l'indice della colonna target
 target_column = "etdrs_20_visit"
 target_index = data.columns.get_loc(target_column)
@@ -29,16 +31,17 @@ selected_features = X.columns[selector.get_support()]
 print("Feature selezionate:")
 print(selected_features)
 
-
 # Salva il nuovo dataset con le feature selezionate
 selected_data = pd.DataFrame(X_new, columns=selected_features)
-selected_data['etdrs_20_visit'] = y  # Riaggiungo la colonna target
+selected_data['fourier_coeff'] = fourier_coeff
+selected_data['trend'] = trend
 
-save_csv(selected_data, "train_dataset_trex_augmented.csv")
+save_csv(selected_data, "train_dataset_trex_not_augmented.csv")
 
 selected_data_normalized = normalizza_feature_numeriche(selected_data,"../../../feature_engineering/regressione"
-                                                                      "/scaler/scaler_trex_augmented.pkl")
-feature_names = selected_data_normalized.columns.tolist()  # Lista delle colonne originali
-joblib.dump(feature_names, "../../../feature_engineering/regressione/scaler/feature_names_trex_augmented.pkl")
+                                                                      "/scaler/scaler_trex_not_augmented.pkl")
+feature_names = selected_data.columns.tolist()  # Lista delle colonne originali
 
-save_csv(selected_data_normalized,'train_dataset_trex_augmented_normalized.csv')
+joblib.dump(feature_names, "../../../feature_engineering/regressione/scaler/feature_names_trex_not_augmented.pkl")
+
+save_csv(selected_data_normalized,'train_dataset_trex_not_augmented_normalized.csv')

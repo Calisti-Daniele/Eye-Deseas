@@ -15,10 +15,9 @@ def compute_trend(row):
     return slope
 
 
-df = read_csv('../../datasets/dme/regressione/normalized/augmented/monthly.csv')
-df = df.drop(['fourier_coeff', 'trend'], axis=1)
+df = read_csv('../../training/xgboost/feature_selection/train_dataset_trex_not_augmented_normalized.csv')
 
 df["fourier_coeff"] = df.apply(fourier_transform, axis=1)
 df["trend"] = df.apply(compute_trend, axis=1)
 
-save_csv(df, "../../datasets/dme/regressione/normalized/augmented/monthly.csv")
+save_csv(df, "../../training/xgboost/feature_selection/train_dataset_trex_not_augmented_normalized.csv")

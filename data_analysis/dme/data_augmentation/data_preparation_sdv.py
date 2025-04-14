@@ -4,7 +4,7 @@ from sdv.metadata import SingleTableMetadata
 from functions.utility_functions import *
 
 # Carica il dataset
-df = read_csv("../../../datasets/dme/prepared/monthly.csv")
+df = read_csv("../../../datasets/dme/prepared/trex.csv")
 
 # Separare la prima colonna (esempio: 'study_id') e il resto dei dati
 first_col = df.iloc[:, 0]  # Salva la prima colonna (ID del paziente)
@@ -40,7 +40,7 @@ while prev_missing_count > 0:
     model.fit(df_train)
 
     # **3️⃣ Generazione di Dati Sintetici per l'intero dataset**
-    synth_data = model.sample(num_rows=len(df))
+    synth_data = model.sample(num_rows=10000)
 
     # **4️⃣ Riempie OGNI valore nullo con il valore corrispondente del dataset sintetico**
     df = df.combine_first(synth_data)
