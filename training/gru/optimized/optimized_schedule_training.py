@@ -9,7 +9,7 @@ import os
 import time  # 👈 aggiunto
 
 # === Parametri
-dataset_path = "datasets/gru_dataset_random_10k.npz"
+dataset_path = "datasets/trex_dataset_random_10k.npz"
 model_path = "models/gru_scheduled_sampling_bidirectional_10k.keras"
 scaler_path = "scaler/scaler_gru_y_10k.pkl"
 epochs = 50

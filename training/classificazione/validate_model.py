@@ -2,7 +2,7 @@ import pandas as pd
 from functions.utility_functions import *
 # Carica i due file
 reale = read_csv('for_prediction_with_info.csv')
-predetto = read_csv('predizioni_con_trattamento.csv')
+predetto = read_csv('predizioni_con_trattamento_senza visite.csv')
 
 # Assicurati che siano allineati
 assert len(reale) == len(predetto), "❌ I file non hanno lo stesso numero di righe!"

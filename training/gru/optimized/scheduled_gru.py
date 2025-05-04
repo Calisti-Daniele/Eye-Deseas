@@ -9,9 +9,9 @@ import os
 import joblib
 
 # === Percorsi
-dataset_path = "datasets/gru_dataset_random_10k.npz"
-model_path = "models/gru_scheduled_10k_bidirectional.keras"
-scaler_path = "scaler/scaler_gru_y_10k_bidirectional.pkl"
+dataset_path = "datasets/gila_dataset_random_10k.npz"
+model_path = "models/gila_scheduled_10k_bidirectional.keras"
+scaler_path = "scaler/scaler_gru_y_gila_10k_bidirectional.pkl"
 
 # === Caricamento dataset
 print(f"📥 Caricamento del dataset GRU da: {dataset_path}")

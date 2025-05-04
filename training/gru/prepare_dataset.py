@@ -59,7 +59,7 @@ def create_gru_dataset(path, start_n=3, target_n=20, save_path=None):
 # === Script entry point ===
 if __name__ == "__main__":
     input_csv = "datasets/train_dataset_trex_not_augmented.csv"
-    output_npz = "datasets/gru_dataset_trex_padded.npz"
+    output_npz = "datasets/trex_dataset_trex_padded.npz"
     start_n = 3
     target_n = 20
 

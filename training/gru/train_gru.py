@@ -8,7 +8,7 @@ from keras.api.layers import Masking, GRU, Dense, Dropout, Bidirectional, Input
 from keras.api.callbacks import EarlyStopping, ModelCheckpoint
 
 # === Path
-dataset_path = "datasets/gru_dataset_trex_padded.npz"
+dataset_path = "datasets/trex_dataset_trex_padded.npz"
 model_save_path = "models/gru_etdrs_model_padded.keras"
 scaler_y_path = "scaler/scaler_y_gru.pkl"
 scaler_X_path = "scaler/scaler_X_gru.pkl"

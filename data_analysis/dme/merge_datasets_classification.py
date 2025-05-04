@@ -18,12 +18,7 @@ for file, trattamento in file_mapping.items():
     # Aggiunge la colonna "trattamento" con il nome corretto
     df['trattamento'] = trattamento
     # Determina il nome corretto della colonna finale da includere
-    if 'etdrs_3_visit' in df.columns:
-        stop_col = 'etdrs_3_visit'
-    elif 'etdrs_visit_3' in df.columns:
-        stop_col = 'etdrs_visit_3'
-    else:
-        raise ValueError(f"Colonna 'etdrs_3_visit' o 'etdrs_visit_3' non trovata in {file}.")
+    stop_col = "bmi"
 
     # Prendi solo le colonne fino a quella individuata
     cols_to_keep = df.loc[:, :stop_col].columns.tolist()
@@ -31,12 +26,6 @@ for file, trattamento in file_mapping.items():
 
     # Rinomina le colonne etdrs visit in modo uniforme
     rename_map = {
-        'etdrs_visit_1': 'etdrs_1',
-        'etdrs_visit_2': 'etdrs_2',
-        'etdrs_visit_3': 'etdrs_3',
-        'etdrs_1_visit': 'etdrs_1',
-        'etdrs_2_visit': 'etdrs_2',
-        'etdrs_3_visit': 'etdrs_3',
         'age_at_enrollment': 'age',
         'age_at_enrolment': 'age'
     }
@@ -50,6 +39,6 @@ merged_df = pd.concat(dataframes, ignore_index=True)
 
 
 # Salva il risultato in un nuovo CSV
-save_csv(merged_df,'../../datasets/dme/classificazione/dataset_unificato.csv')
+save_csv(merged_df,'../../datasets/dme/classificazione/dataset_unificato_senza visite.csv')
 
 print("✅ Dataset unificato salvato come 'dataset_unificato.csv'.")

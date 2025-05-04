@@ -4,7 +4,7 @@ import pickle
 from functions.utility_functions import read_csv, save_csv
 
 # Carica il modello
-with open('catboost_model.pkl', 'rb') as f:
+with open('catboost_model_no_visits.pkl', 'rb') as f:
     model = pickle.load(f)
 
 # Carica nuovi dati
@@ -19,6 +19,6 @@ predizioni = model.predict(X_nuovi)
 
 # Output
 nuovi_dati['trattamento_predetto'] = predizioni
-save_csv(nuovi_dati,'predizioni_con_trattamento.csv')
+save_csv(nuovi_dati,'predizioni_con_trattamento_senza visite.csv')
 
 print("✅ Predizioni salvate in 'predizioni_con_trattamento.csv'")

@@ -12,7 +12,7 @@ from functions.utility_functions import read_csv
 warnings.filterwarnings("ignore")
 
 # Carica il dataset unificato
-df = read_csv('../../datasets/dme/classificazione/dataset_unificato.csv')
+df = read_csv('../../datasets/dme/classificazione/dataset_unificato_senza visite.csv')
 
 # Separa le feature e il target
 X = df.drop(columns=['trattamento'])
@@ -44,7 +44,7 @@ plt.tight_layout()
 plt.show()
 
 # Salvataggio modello
-with open('catboost_model.pkl', 'wb') as f:
+with open('catboost_model_no_visits.pkl', 'wb') as f:
     pickle.dump(model, f)
 
 print("\n💾 Modello CatBoost salvato in 'catboost_model.pkl'.")

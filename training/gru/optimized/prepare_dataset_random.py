@@ -12,7 +12,7 @@ def prepare_random_gru_dataset(input_path, start_n=3, target_n=20, save_path=Non
 
     for _, row in df.iterrows():
         static = row[STATIC_FEATURES].values.astype(np.float32)
-        visits = [row.get(f'etdrs_{i}_visit', np.nan) for i in range(1, target_n + 1)]
+        visits = [row.get(f'etdrs_visit_{i}', np.nan) for i in range(1, target_n + 1)]
 
         if any(pd.isna(visits)): continue  # scarta righe incomplete
 
@@ -42,6 +42,6 @@ def prepare_random_gru_dataset(input_path, start_n=3, target_n=20, save_path=Non
 
 if __name__ == "__main__":
     prepare_random_gru_dataset(
-        "../../../datasets/dme/ready_to_use/augmented/trex_10k_samples.csv",
-        save_path="datasets/gru_dataset_random_10k.npz"
+        "../../../datasets/dme/ready_to_use/augmented/gila_10k_samples.csv",
+        save_path="datasets/gila_dataset_random_10k.npz"
     )

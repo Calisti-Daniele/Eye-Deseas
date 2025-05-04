@@ -13,7 +13,7 @@ from functions.utility_functions import *
 warnings.filterwarnings("ignore")
 
 # Carica il dataset unificato
-df = read_csv('../../datasets/dme/classificazione/dataset_unificato.csv')
+df = read_csv('../../datasets/dme/classificazione/dataset_unificato_senza visite.csv')
 
 # Separa le feature e il target
 X = df.drop(columns=['trattamento'])

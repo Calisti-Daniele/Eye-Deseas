@@ -50,8 +50,8 @@ def predict_sequence_gru(row, model, scaler_y, start_n=3, target_n=20):
 if __name__ == "__main__":
     input_csv = "datasets/for_prediction/trex_10k_samples.csv"
     output_csv = "datasets/prediction/trex_gru_predicted_10k_bidirectional.csv"
-    model_path = "models/gru_scheduled_10k_bidirectional.keras"
-    scaler_path = "scaler/scaler_gru_y_10k_bidirectional.pkl"
+    model_path = "models/trex_scheduled_10k_bidirectional.keras"
+    scaler_path = "scaler/scaler_gru_y_trex_10k_bidirectional.pkl"
     start_n = 3
     target_n = 20
 
