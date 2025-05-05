@@ -1,26 +1,17 @@
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, UploadFile, File, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
 import pickle
 import io
 
 # Inizializza FastAPI
-app = FastAPI()
-
-# Abilita CORS se il frontend è su Vercel
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # o specifica il dominio Vercel
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+router = APIRouter()
 
 # Carica il modello una sola volta
-with open('../training/classificazione/catboost_model_no_visits.pkl', 'rb') as f:
+with open('models/catboost_model_no_visits.pkl', 'rb') as f:
     model = pickle.load(f)
 
-@app.post("/predict")
+@router.post("/")
 async def predict(file: UploadFile = File(...)):
     # Legge il file in memoria
     contents = await file.read()

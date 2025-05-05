@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, Form
+from fastapi import FastAPI, UploadFile, File, Form, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
 import numpy as np
@@ -6,15 +6,7 @@ import joblib
 from keras.api.models import load_model
 import io
 
-app = FastAPI()
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # oppure ["https://tuo.vercel.app"]
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+router = APIRouter()
 
 # Static features per trattamento
 STATIC_FEATURES_MAP = {
@@ -55,7 +47,7 @@ def predict_sequence_gru(row, model, scaler_y, static_features, treatment, start
 
     return row
 
-@app.post("/predict-etdrs")
+@router.post("/")
 async def predict_etdrs(
     file: UploadFile = File(...),
     treatment: str = Form(...),
@@ -76,8 +68,8 @@ async def predict_etdrs(
     static_features = STATIC_FEATURES_MAP[treatment]
 
     # Percorsi ai modelli
-    model_path = f"../training/gru/optimized/models/{treatment.lower()}_scheduled_10k_bidirectional.keras"
-    scaler_path = f"../training/gru/optimized/scaler/scaler_gru_y_{treatment.lower()}_10k_bidirectional.pkl"
+    model_path = f"models/{treatment.lower()}_scheduled_10k_bidirectional.keras"
+    scaler_path = f"scaler/scaler_gru_y_{treatment.lower()}_10k_bidirectional.pkl"
 
     try:
         model = load_model(model_path)
