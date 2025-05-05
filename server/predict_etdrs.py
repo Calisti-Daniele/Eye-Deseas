@@ -78,9 +78,13 @@ async def predict_etdrs(
         return {"error": f"Errore nel caricamento modello o scaler: {str(e)}"}
 
     try:
-        df_pred = df.apply(lambda row: predict_sequence_gru(
-            row, model, scaler_y, static_features, treatment, start_n=start_n, target_n=target
-        ), axis=1)
+        records = []
+        for _, row in df.iterrows():
+            row = predict_sequence_gru(row.copy(), model, scaler_y, static_features, treatment, start_n=start_n,
+                                       target_n=target)
+            records.append(row)
+
+        df_pred = pd.DataFrame(records)
     except Exception as e:
         return {"error": f"Errore durante la predizione: {str(e)}"}
 
