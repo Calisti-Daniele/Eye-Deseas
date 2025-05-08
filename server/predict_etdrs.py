@@ -86,6 +86,7 @@ async def predict_etdrs(
 
         df_pred = pd.DataFrame(records)
     except Exception as e:
+        print()
         return {"error": f"Errore durante la predizione: {str(e)}"}
 
     prediction_columns = [get_column_name(i, treatment) for i in range(start_n + 1, target + 1)]
