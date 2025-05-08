@@ -5,6 +5,7 @@ import numpy as np
 import joblib
 from keras.api.models import load_model
 import io
+import traceback
 
 router = APIRouter()
 
@@ -72,10 +73,20 @@ async def predict_etdrs(
     scaler_path = f"scaler/scaler_gru_y_{treatment.lower()}_10k_bidirectional.pkl"
 
     try:
+        print(f"📂 Caricamento modello da: {model_path}")
         model = load_model(model_path)
+        print("✅ Modello caricato con successo")
+
+        print(f"📂 Caricamento scaler da: {scaler_path}")
         scaler_y = joblib.load(scaler_path)
+        print("✅ Scaler caricato con successo")
     except Exception as e:
-        return {"error": f"Errore nel caricamento modello o scaler: {str(e)}"}
+        print("❌ Errore nel caricamento del modello o dello scaler:")
+        traceback.print_exc()
+        return {
+            "error": "Errore nel caricamento modello o scaler.",
+            "dettagli": traceback.format_exc()
+        }
 
     try:
         records = []
